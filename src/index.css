@@ -1,0 +1,26 @@
+/* @config "./config/tailwind/config.cjs" */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	/* overflow: hidden; */
+	/* position: relative; */
+}
+
+body {
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hideScollbar::-webkit-scrollbar {
+	display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hideScollbar {
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
+}

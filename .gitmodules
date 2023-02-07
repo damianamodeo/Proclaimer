@@ -1,0 +1,3 @@
+[submodule "src/submodules/UIComponents"]
+	path = src/submodules/UIComponents
+	url = https://github.com/damianamodeo/UIComponents
