@@ -10,7 +10,7 @@ const List = ({ addresses }: ListType) => {
 	return (
 		<div className={` `}>
 			{addresses &&
-				Object.entries(addresses).reverse().map((address) => {
+				Object.entries(addresses).reverse().map((address: any) => {
 					return (
 						<div className="grid grid-cols-12 h-12 border-b dark:border-darkGrey-700">
 							<div className="col-span-2 text-center my-auto">

@@ -15,7 +15,7 @@ const Add = ({ addresses }: AddType) => {
 	const submitRef = useRef<HTMLButtonElement | null>(null);
 	let letterList: boolean = false;
 	const setLetterList = (value: any) => {
-		setModal(true);
+		// setModal(true);
 		letterList = value;
 		submitRef.current?.click();
 	};
@@ -29,15 +29,18 @@ const Add = ({ addresses }: AddType) => {
 			{modal && <ConfirmSubmitModal></ConfirmSubmitModal>}
 			<FormikForm
 				initialValues={{
-					mapNumber: localStorage.getItem("lastEditedmapNumber"),
-					suburb: localStorage.getItem("lastEditedsuburb"),
-					street: localStorage.getItem("lastEditedstreet"),
-					houseNumber: "",//localStorage.getItem("lastEditedhouseNumber"),
-					unitNumber: "",//localStorage.getItem("lastEditedunitNumber"),
+					mapNumber: localStorage.getItem('lastEditedmapNumber'),
+					suburb: localStorage.getItem('lastEditedsuburb'),
+					street: localStorage.getItem('lastEditedstreet'),
+					houseNumber: '', //localStorage.getItem("lastEditedhouseNumber"),
+					unitNumber: '', //localStorage.getItem("lastEditedunitNumber"),
 					letter: false,
 				}}
 				onSubmit={(address: any) => {
-					addAddress({ ...address, letter: letterList });
+					alert(
+						`mapNumber:  ${address.mapNumber}\nsuburb:  ${address.suburb}\nstreet:  ${address.street}\nhouseNumber:  ${address.houseNumber}\nunitNumber:  ${address.unitNumber}\nletterList:  ${letterList}`
+					);
+					// addAddress({ ...address, letter: letterList });
 				}}
 				onChange={onChange}
 			>
