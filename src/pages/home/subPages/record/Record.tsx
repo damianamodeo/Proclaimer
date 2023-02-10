@@ -1,4 +1,5 @@
 import Add from '@PAGES/home/subPages/record/add/Add';
+import List from '@PAGES/home/subPages/record/list/List';
 import Trans from '@PAGES/home/subPages/record/Transactions copy';
 import { fdb } from '@SERVICES/firebase/config';
 import Carousel from '@UICOMPONENTS/containers/Carousel';
@@ -33,8 +34,7 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
 	}
 
 	useEffect(() => {
-		const unsub = onSnapshot(doc(fdb, 'Congregation', 'addresses'), (doc) => {
-			console.log('Current data: ', doc.data());
+		const unsub = onSnapshot(doc(fdb, 'notAtHomes', 'MaitlandCongregation'), (doc) => {
 			setAddresses(()=>doc.data());
 		});
 
@@ -46,7 +46,7 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
 			<Carousel
 				carouselItems={[
 					{ title: 'Add Address', content: <Add addresses={addresses}></Add> },
-					{ title: 'List', content: <Trans addresses={addresses}></Trans> },
+					{ title: 'Personal List', content: <List addresses={addresses}></List> },
 				]}
 			></Carousel>
 		</Content>

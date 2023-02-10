@@ -1,67 +1,117 @@
-import { doc, runTransaction, arrayUnion } from 'firebase/firestore';
-import { fdb } from '@SERVICES/firebase/config';
-import { useEffect } from 'react';
+import { useRef, useState } from 'react';
 import FormikForm from '@UICOMPONENTS/inputs/FormikForm';
 import Input from '@UICOMPONENTS/inputs/Input';
 import Button from '@UICOMPONENTS/inputs/Button';
+import addAddress from '@PAGES/home/subPages/record/add/addAddress';
+import ConfirmSubmitModal from '@PAGES/home/subPages/record/add/ConfirmSubmitModal';
 
 type AddType = {
 	addresses?: any;
 };
 
 const Add = ({ addresses }: AddType) => {
-	const addToArrayTwo = async (values: any) => {
-		if (values.mapID === localStorage.lastEditedMapID) {
-			const docRef = doc(fdb, 'Congregation', 'addresses');
-			try {
-				await runTransaction(fdb, async (transaction) => {
-					const addressesDoc: any = await transaction.get(docRef);
-					if (!addressesDoc.data().mapIDs.includes(values.mapID) === true) {
-						transaction.set(
-							docRef,
-							{
-								mapIDs: arrayUnion(values.mapID),
-							},
-							{ merge: true }
-						);
-						console.log('New MapID successfully committed!');
-						return;
-					}
-					console.log('MapID already existed!');
-					return;
-				});
-			} catch (e) {
-				console.log('Transaction failed: ', e);
-			}
-		}
+	const [modal, setModal] = useState(false);
 
-		localStorage.setItem('lastEditedSuburb', values.suburb || '');
-		localStorage.setItem('lastEditedStreet', values.street || '');
-		localStorage.setItem('lastEditedHouseNumber', values.houseNumber || '');
-		localStorage.setItem('lastEditeUnitNumber', values.unitNumber || '');
-		localStorage.setItem('lastEditedMapID', values.mapID || '');
+	const submitRef = useRef<HTMLButtonElement | null>(null);
+	let letterList: boolean = false;
+	const setLetterList = (value: any) => {
+		setModal(true);
+		letterList = value;
+		submitRef.current?.click();
+	};
+
+	const onChange = (e: any) => {
+		localStorage.setItem(`lastEdited${e.target.name}`, e.target.value);
 	};
 
 	return (
 		<div className={`mx-2`}>
+			{modal && <ConfirmSubmitModal></ConfirmSubmitModal>}
 			<FormikForm
-				initialValues={{ mapID: '', suburb: '' }}
-				onSubmit={(values: any) => {
-					console.log(values);
-					addToArrayTwo(values);
+				initialValues={{
+					mapNumber: localStorage.getItem("lastEditedmapNumber"),
+					suburb: localStorage.getItem("lastEditedsuburb"),
+					street: localStorage.getItem("lastEditedstreet"),
+					houseNumber: "",//localStorage.getItem("lastEditedhouseNumber"),
+					unitNumber: "",//localStorage.getItem("lastEditedunitNumber"),
+					letter: false,
 				}}
+				onSubmit={(address: any) => {
+					addAddress({ ...address, letter: letterList });
+				}}
+				onChange={onChange}
 			>
-				<div className="m-10 grid gap-6 ">
+				<div className="m-10 grid gap-4 ">
 					<Input
 						inputType="text"
 						label="Map ID"
-						name="mapID"
+						name="mapNumber"
 					></Input>
 					<Input
 						inputType="text"
 						name="suburb"
 						label="Suburb"
 					></Input>
+					<Input
+						inputType="text"
+						name="street"
+						label="Street"
+					></Input>
+					<Input
+						inputType="text"
+						name="houseNumber"
+						label="House"
+					></Input>
+					<Input
+						inputType="text"
+						name="unitNumber"
+						label="Unit"
+					></Input>
+				</div>
+				<div className="flex justify-center">
+					<Button
+						clickAction={null}
+						longPressAction={(e: any) => {
+							setLetterList(true);
+						}}
+						delay={300}
+						color="grey"
+					>
+						Letter List
+					</Button>
+					<Button
+						clickAction={null}
+						longPressAction={(e: any) => {
+							setLetterList(false);
+						}}
+						delay={300}
+						color="grey"
+					>
+						Return List
+					</Button>
+					<button
+						type="submit"
+						ref={submitRef}
+					></button>
+				</div>
+				<div className="text-center mt-12 font-bold">
+					{' '}
+					Last submitted address:
+				</div>
+				<div className="text-center">
+					{addresses &&
+						Object.entries(addresses)
+							?.reverse()
+							.map((address: any) => {
+								return (
+									<div>
+										<div>{` Map: ${address[1].mapNumber}`}</div>
+										{`${address[1].unitNumber}${address[1].unitNumber && '/'}${
+											address[1].houseNumber
+										} ${address[1].street} ${address[1].suburb}`}
+									</div>
+								);
+							})[0]}
 				</div>
 			</FormikForm>
 		</div>
