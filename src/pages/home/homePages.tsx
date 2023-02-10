@@ -1,7 +1,6 @@
-import Page0 from './subPages/home';
-import Page1 from './subPages/authentication';
-import Page2 from './subPages/crud';
+import page0 from '@PAGES/home/subPages/homeMainPage';
+import page1 from '@PAGES/home/subPages/record/Record';
 
-const ButtonsPage = [Page0, Page1, Page2];
+const homePage = [page0, page1];
 
-export default ButtonsPage;
+export default homePage;

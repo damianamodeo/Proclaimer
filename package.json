@@ -14,7 +14,7 @@
 		"SUBMODULES INIT": "git submodule update --init",
 		"SUBMODULES UPDATE": "git submodule update --remote --merge",
 		"FIREBASE INSTALL": "npm install firebase && npm install -g firebase-tools && firebase login && firebase init",
-		"FIREBASE EMULATORS": "npx kill-port 4000 9099 5001 8080 9000 8085 9199 9299 && firebase emulators:start --import=./src/services/firebase/emulator-data/",
+		"FIREBASE EMULATORS": "npx kill-port 4000 9099 5001 8080 9000 8085 9199 9299 && firebase emulators:start",
 		"FIREBASE EMULATORS:EXPORT": "firebase emulators:export --force ./src/services/firebase/emulator-data/"
 	},
 	"dependencies": {
