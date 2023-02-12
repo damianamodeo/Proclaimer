@@ -4,20 +4,22 @@ import Input from '@UICOMPONENTS/inputs/Input';
 import Button from '@UICOMPONENTS/inputs/Button';
 import addAddress from '@PAGES/home/subPages/record/add/addAddress';
 import ConfirmSubmitModal from '@PAGES/home/subPages/record/add/ConfirmSubmitModal';
+import { divide } from 'lodash';
 
 type AddType = {
 	addresses?: any;
+	setCurrentSubpage?: any;
 };
 
-const Add = ({ addresses }: AddType) => {
-	const [modal, setModal] = useState(false);
+const Add = ({ addresses, setCurrentSubpage }: AddType) => {
 
 	const submitRef = useRef<HTMLButtonElement | null>(null);
 	let letterList: boolean = false;
 	const setLetterList = (value: any) => {
-		// setModal(true);
+    setCurrentSubpage(null,null,true,<div className='h-full bg-green-300' onClick={()=> {
+      return setCurrentSubpage(null,null,false)}}>this</div>)
 		letterList = value;
-		submitRef.current?.click();
+		// submitRef.current?.click();
 	};
 
 	const onChange = (e: any) => {
@@ -25,8 +27,8 @@ const Add = ({ addresses }: AddType) => {
 	};
 
 	return (
+    <>
 		<div className={`mx-2`}>
-			{modal && <ConfirmSubmitModal></ConfirmSubmitModal>}
 			<FormikForm
 				initialValues={{
 					mapNumber: localStorage.getItem('lastEditedmapNumber'),
@@ -49,27 +51,27 @@ const Add = ({ addresses }: AddType) => {
 						inputType="text"
 						label="Map ID"
 						name="mapNumber"
-					></Input>
+            ></Input>
 					<Input
 						inputType="text"
 						name="suburb"
 						label="Suburb"
-					></Input>
+            ></Input>
 					<Input
 						inputType="text"
 						name="street"
 						label="Street"
-					></Input>
+            ></Input>
 					<Input
 						inputType="text"
 						name="houseNumber"
 						label="House"
-					></Input>
+            ></Input>
 					<Input
 						inputType="text"
 						name="unitNumber"
 						label="Unit"
-					></Input>
+            ></Input>
 				</div>
 				<div className="flex justify-center">
 					<Button
@@ -85,11 +87,11 @@ const Add = ({ addresses }: AddType) => {
 					<Button
 						clickAction={null}
 						longPressAction={(e: any) => {
-							setLetterList(false);
+              setLetterList(false);
 						}}
 						delay={300}
 						color="grey"
-					>
+            >
 						Return List
 					</Button>
 					<button
@@ -118,6 +120,7 @@ const Add = ({ addresses }: AddType) => {
 				</div>
 			</FormikForm>
 		</div>
+            </>
 	);
 };
 

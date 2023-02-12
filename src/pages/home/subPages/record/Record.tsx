@@ -45,7 +45,7 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
 		<Content>
 			<Carousel
 				carouselItems={[
-					{ title: 'Add Address', content: <Add addresses={addresses}></Add> },
+					{ title: 'Add Address', content: <Add addresses={addresses} setCurrentSubpage={setCurrentSubpage}></Add> },
 					{ title: 'Personal List', content: <List addresses={addresses}></List> },
 				]}
 			></Carousel>
