@@ -1,13 +1,17 @@
+commitMessage=deploy' $(date +%F) $(date +%T)'
 #!/usr/bin/env sh
 
 # abort on errors
 set -e
 
+
+# commit
+git add -A && git commit -m "$commitMessage" && git push
+echo '>>> COMMITTED\n\n'
+
 # build
 npm run BUILD
-echo ">>> BUILT"
-npm run COMMIT
-echo ">>> COMMITTED"
+echo '>>> BUILT\n\n'
 
 # navigate into the build output directory
 cd dist
@@ -16,7 +20,6 @@ cd dist
 echo > .nojekyll
 
 # commit main first
-commitMessage=deploy" $(date +%F) $(date +%T)"
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
@@ -37,7 +40,7 @@ echo commit
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 git push -f https://github.com/damianamodeo/$1.git main:gh-pages
-echo ">>> PUSHED"
+echo '>>> PUSHED\n\n'
 
 cd -
 
