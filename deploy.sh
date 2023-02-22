@@ -1,5 +1,4 @@
 commitMessage=deploy" $(date +%F) $(date +%T)"
-echo -e "$commitMessage"
 #!/usr/bin/env sh
 
 # abort on errors
