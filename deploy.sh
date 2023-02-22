@@ -1,4 +1,5 @@
-commitMessage=deploy' $(date +%F) $(date +%T)'
+commitMessage=deploy" $(date +%F) $(date +%T)"
+echo -e "$commitMessage"
 #!/usr/bin/env sh
 
 # abort on errors
@@ -10,8 +11,8 @@ git add -A && git commit -m "$commitMessage" && git push
 echo -e '>>> COMMITTED\n\n'
 
 # build
-# npm run BUILD
-echo '>>> BUILT\n\n'
+npm run BUILD
+echo -e '>>> BUILT\n\n'
 
 # navigate into the build output directory
 cd dist
@@ -24,23 +25,23 @@ echo > .nojekyll
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
 git init
-echo init
+echo -e ">>> INITTED\n\n"
 
 git checkout -B main
-echo checkoutMain
+echo -e ">>> CHECKED OUT\n\n"
 
 git add -A
-echo add
+echo -e ">>> ADDED\n\n"
 
 git commit -m "$commitMessage"
-echo commit
+echo -e ">>> COMMITED\n\n"
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 git push -f https://github.com/damianamodeo/$1.git main:gh-pages
-echo '>>> PUSHED\n\n'
+echo -e '>>> PUSHED\n\n'
 
 cd -
 
