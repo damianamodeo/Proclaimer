@@ -37,7 +37,7 @@ echo commit
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 git push -f https://github.com/damianamodeo/$1.git main:gh-pages
-echo push
+echo ">>> PUSHED"
 
 cd -
 
