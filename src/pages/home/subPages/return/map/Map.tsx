@@ -3,6 +3,8 @@ import useSupercluster from "use-supercluster";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import EditModal from "./EditModal";
+import { useDarkMode } from "usehooks-ts";
+import ClusterMarker from "./ClusterMarker";
 
 type MapType = {
   children?: any;
@@ -15,7 +17,9 @@ const mapboxAccessToken =
 
 const MapPage = ({ addresses, setCurrentSubpage }: MapType) => {
 
-  const addressesData = addresses ? addresses : {}
+  const damiansHome = {lng: 151.571001, lat: -32.7707}
+  const { isDarkMode } = useDarkMode();
+  const addressesData = addresses ? addresses : {};
   const [viewport, setViewport] = useState({
     latitude: -32.7707,
     longitude: 151.571001,
@@ -47,7 +51,7 @@ const MapPage = ({ addresses, setCurrentSubpage }: MapType) => {
     points,
     zoom: viewport.zoom,
     bounds,
-    options: { radius: 75, maxZoom: 16 , minPoints: 2},
+    options: { radius: 50, maxZoom: 18, minPoints: 2 },
   });
 
   const onSelectCity = useCallback(({ longitude, latitude, zoom }: any) => {
@@ -59,79 +63,70 @@ const MapPage = ({ addresses, setCurrentSubpage }: MapType) => {
   }, []);
 
   return (
-      <Map
-        reuseMaps
-        initialViewState={{
-          latitude: -32.7707,
-          longitude: 151.571001,
-          zoom: 11,
-        }}
-        onMoveEnd={(event: any) => {
-          setViewport({ ...viewport, ...event.viewState });
-        }}
-        style={{ width: "100%", height: "100%" }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        mapboxAccessToken={mapboxAccessToken}
-        ref={mapRef}
-      >
-        {clusters.map((cluster: any, key: number) => {
-          const [lng, lat] = cluster.geometry.coordinates;
-          const {
-            cluster: isCluster,
-            point_count: pointCount,
-            address,
-          } = cluster.properties;
-          if (isCluster) {
-            return (
-              <Marker key={key} latitude={lat} longitude={lng}>
-                <div
-                  className={`bg-success-500 text-xl grid place-items-center text-center align-middle rounded-full `}
-                  style={{
-                    width: `${20 + (pointCount / points.length) * 70}px`,
-                    height: `${20 + (pointCount / points.length) * 70}px`,
-                  }}
-                  onClick={() => {
-                    const expansionZoom = Math.min(
-                      supercluster.getClusterExpansionZoom(cluster.id),
-                      20
-                    );
-                    setViewport({
-                      ...viewport,
-                      latitude: lat,
-                      longitude: lng,
-                      zoom: expansionZoom,
-                    });
-                    onSelectCity({
-                      longitude: lng,
-                      latitude: lat,
-                      zoom: expansionZoom + 0.5,
-                    });
-                  }}
-                >
-                  {pointCount}
-                </div>
-              </Marker>
-            );
-          }
+    <Map
+      reuseMaps
+      initialViewState={{
+        latitude: -32.7707,
+        longitude: 151.571001,
+        zoom: 11,
+      }}
+      maxZoom={18}
+      minZoom={11}
+      maxBounds={[damiansHome.lng - 0.14,damiansHome.lat - 0.05,damiansHome.lng + 0.25,damiansHome.lat + 0.4]}
+      onMoveEnd={(event: any) => {
+        setViewport({ ...viewport, ...event.viewState });
+      }}
+      style={{ width: "100%", height: "100%" }}
+      mapStyle={`mapbox://styles/damianamodeo/${
+        isDarkMode ? "clefix5la000901po4wflstdd" : "clefifzvz000u01nw8h84n67m"
+      }`}
+      mapboxAccessToken={mapboxAccessToken}
+      ref={mapRef}
+    >
+      {clusters.map((cluster: any, key: number) => {
+        const [lng, lat] = cluster.geometry.coordinates;
+        const {
+          cluster: isCluster,
+          point_count: pointCount,
+          address,
+        } = cluster.properties;
+        if (cluster.properties.cluster) {
           return (
-            <Marker key={key} latitude={lat} longitude={lng}
-            onClick={()=>{
+            <ClusterMarker
+              key={key}
+              points={points}
+              supercluster={supercluster}
+              viewport={viewport}
+              setViewport={setViewport}
+              onSelectCity={onSelectCity}
+              cluster={cluster}
+            ></ClusterMarker>
+          );
+        }
+        return (
+          <Marker
+            key={key}
+            latitude={lat}
+            longitude={lng}
+            onClick={() => {
               setCurrentSubpage(
                 1,
                 null,
                 true,
-                <EditModal 
-                address={address}
-                setCurrentSubpage={setCurrentSubpage} 
-                ></EditModal>)
-            }
-          }
-            >
-              <div className="bg-error-500 p-1 rounded-full">{address[1].houseNumber}</div>
-            </Marker>
-          );
-        })}
-      </Map>
+                <EditModal
+                  address={address}
+                  setCurrentSubpage={setCurrentSubpage}
+                ></EditModal>
+              );
+            }}
+          >
+            <div className="bg-error-500 p-1 rounded-full">
+              {address[1].houseNumber}
+            </div>
+          </Marker>
+        );
+      })}
+    </Map>
   );
 };
 
