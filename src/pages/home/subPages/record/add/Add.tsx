@@ -12,7 +12,7 @@ type AddType = {
 };
 
 const Add = ({ addresses, setCurrentSubpage }: AddType) => {
-  const string = "hksdf sdlfgh dfjh skjhdgedhvg cvbfg xdhfgd hfg ho; ;hdf g hjkhg dklfjsgh flihug fkhj"
+  const string = "hksdf sdlfgh dfjh skjhdgedhvg cvbfg xdhfgd hfg ho; ;hdf g hjkhg dklfjsgh flihug fkhj" 
    return (
     <>
       <div className={`mx-2`}>

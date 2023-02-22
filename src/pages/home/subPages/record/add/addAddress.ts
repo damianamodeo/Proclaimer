@@ -31,8 +31,7 @@ const addAddress = async (address: AddressType) => {
     })
     .then((data) => {
       return data.features[0].center;
-    });
-  console.log("response", response);
+    }); 
 
   const document = doc(fdb, "notAtHomes", "MaitlandCongregation");
   const newAddress: NewAddress = {};

@@ -18,6 +18,7 @@
 		"FIREBASE EMULATORS:EXPORT": "firebase emulators:export --force ./src/services/firebase/emulator-data/"
 	},
 	"dependencies": {
+		"@types/mapbox-gl": "^2.7.10",
 		"firebase": "^9.16.0",
 		"formik": "^2.2.9",
 		"framer-motion": "^8.5.5",
@@ -25,6 +26,9 @@
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-intersection-observer": "^9.4.1",
+		"react-map-gl": "^7.0.21",
+		"supercluster": "^7.1.5",
+		"use-supercluster": "^0.4.0",
 		"vite-plugin-html": "^3.2.0",
 		"vite-plugin-svgr": "^2.4.0",
 		"yup": "^0.32.11"

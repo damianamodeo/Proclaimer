@@ -28,10 +28,6 @@ const headerComponent = ({ setCurrentSubpage }: any) => {
 const contentComponent = ({ setCurrentSubpage }: any) => {
 	const [addresses, setAddresses] = useState(()=>{return});
 
-	function handleRecordNotAtHomes(e: any) {
-		throw new Error('Function not implemented.');
-	}
-
 	useEffect(() => {
 		const unsub = onSnapshot(doc(fdb, 'notAtHomes', 'MaitlandCongregation'), (doc) => {
 			setAddresses(()=>doc.data());

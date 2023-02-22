@@ -13,9 +13,6 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
     dateStyle: "medium",
     timeStyle: "short",
   }).format(buildTime);
-
-  console.log("~~~ ~ contentComponent ~ date TEST", buildTime);
-
   return (
     <Content>
       <div className="p-4">Build Time: {formattedDateAndTime}</div>

@@ -35,10 +35,10 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
 
 				<Button
 					clickAction={(e: any) => {
-						handleRecordNotAtHomes(e);
+						setCurrentSubpage(2,1);
 					}}
 					longPressAction={(e: any) => {
-						handleRecordNotAtHomes(e);
+						setCurrentSubpage(2,1);
 					}}
 					delay={500}
 					color="grey"
