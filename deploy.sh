@@ -4,7 +4,7 @@
 set -e
 
 # build
-npm run BUILD
+# npm run BUILD
 
 # navigate into the build output directory
 cd dist
@@ -14,14 +14,17 @@ echo > .nojekyll
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
-
 git init
 echo init
+
 git checkout -B main
 echo checkoutMain
+
 git add -A
 echo add
-git commit -m 'deploy'
+
+commitMessage=deploy" $(date +%F) $(date +%T)"
+git commit -m "$commitMessage"
 echo commit
 
 # if you are deploying to https://<USERNAME>.github.io

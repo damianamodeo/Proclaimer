@@ -6,7 +6,7 @@
 	"scripts": {
 		"SERVE": "vite --host",
 		"COMMIT": "git add -A && git commit -m 'scriptBackup' && git push",
-		"BUILD": "tsc && vite build",
+		"BUILD": "tsc && VITE_APP_BUILD_TIME=$(date +%s) vite build",
 		"PREVIEW": "vite preview --host",
 		"GENERATE PWA ASSETS": "npx pwa-asset-generator src/icons/logo.svg src/icons/pwa --splash-only true --background $(grep -Po '^VITE_APP_SPLASH_SCREEN_COLOR=\\K.*' .env  ) --favicon true --padding '10%' && npx pwa-asset-generator src/icons/logo.svg public/assets --background $(grep -Po '^VITE_APP_SPLASH_SCREEN_COLOR=\\K.*' .env  ) --icon-only true",
 		"DEPLOY": "bash deploy.sh $(grep -Po '^VITE_APP_NAME=\\K.*' .env  )",

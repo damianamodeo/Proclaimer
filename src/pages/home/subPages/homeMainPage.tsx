@@ -19,7 +19,7 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
 
 	return (
 		<Content>
-			<div className="mx-10 mt-8 grid grid-cols-1 gap-4">
+			<div className="mx-10 mt-8 grid grid-cols-1 gap-8">
 				<Button
 					clickAction={(e: any) => {
 						setCurrentSubpage(1,1);

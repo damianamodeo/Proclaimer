@@ -1,6 +1,5 @@
 import Add from '@PAGES/home/subPages/record/add/Add';
 import List from '@PAGES/home/subPages/record/list/List';
-import Trans from '@PAGES/home/subPages/record/Transactions copy';
 import { fdb } from '@SERVICES/firebase/config';
 import Carousel from '@UICOMPONENTS/containers/Carousel';
 import Content from '@UICOMPONENTS/containers/Content';
@@ -15,7 +14,7 @@ const headerComponent = ({ setCurrentSubpage }: any) => {
 			headerLeft={
 				<div
 					className="flex content-center"
-					onClick={() => setCurrentSubpage(0, -1)}
+					onClick={() => {setCurrentSubpage(0, -1, null, null)}}
 				>
 					<BackArrow className="text-[1.7rem]" /> Home
 				</div>
@@ -46,7 +45,7 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
 			<Carousel
 				carouselItems={[
 					{ title: 'Add Address', content: <Add addresses={addresses} setCurrentSubpage={setCurrentSubpage}></Add> },
-					{ title: 'Personal List', content: <List addresses={addresses}></List> },
+					{ title: 'Personal List', content: <List addresses={addresses} setCurrentSubpage={setCurrentSubpage}></List> },
 				]}
 			></Carousel>
 		</Content>

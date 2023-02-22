@@ -27,7 +27,7 @@ export const fdb = getFirestore();
 export const auth = getAuth(app)
 export const googleProvider = new GoogleAuthProvider()
 // export const cloudFunctions = getFunctions(getApp());
-if (import.meta.env.DEV) {
+if (import.meta.env.DEV) { 
   // connectFunctionsEmulator(cloudFunctions, "localhost", 5001);
   connectAuthEmulator(auth, "http://localhost:9099");
   connectFirestoreEmulator(fdb, "localhost", 8080);

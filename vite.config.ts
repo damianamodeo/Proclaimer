@@ -13,7 +13,7 @@ export default ({ mode }) => {
 			exclude: ["firebase", "firebase/app", "firebase/auth", "firebase/firestore", "firebase/analytics"],
 		},
 		base: `/${process.env.VITE_APP_REPO}/`,
-		plugins: [
+		plugins: [ 
 			svgr({
 				svgrOptions: {
 					icon: true,
