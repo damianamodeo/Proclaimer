@@ -7,10 +7,10 @@ set -e
 
 # commit
 git add -A && git commit -m "$commitMessage" && git push
-echo '>>> COMMITTED\n\n'
+echo -e '>>> COMMITTED\n\n'
 
 # build
-npm run BUILD
+# npm run BUILD
 echo '>>> BUILT\n\n'
 
 # navigate into the build output directory
