@@ -14,7 +14,7 @@ const contentComponent = ({ setCurrentSubpage }: any) => {
     timeStyle: "short",
   }).format(buildTime);
 
-  console.log("~~~ ~ contentComponent ~ date", buildTime);
+  console.log("~~~ ~ contentComponent ~ date TEST", buildTime);
 
   return (
     <Content>

@@ -4,13 +4,19 @@
 set -e
 
 # build
-# npm run BUILD
+npm run BUILD
+echo ">>> BUILT"
+npm run COMMIT
+echo ">>> COMMITTED"
 
 # navigate into the build output directory
 cd dist
 
 # place .nojekyll to bypass Jekyll processing
 echo > .nojekyll
+
+# commit main first
+commitMessage=deploy" $(date +%F) $(date +%T)"
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME
@@ -23,7 +29,6 @@ echo checkoutMain
 git add -A
 echo add
 
-commitMessage=deploy" $(date +%F) $(date +%T)"
 git commit -m "$commitMessage"
 echo commit
 
